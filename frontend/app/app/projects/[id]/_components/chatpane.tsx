@@ -61,9 +61,16 @@ export default function ProjectChatPane() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const text = e.target.question.value;
+        const elem = e.currentTarget;
+        if (!elem) return;
+
+        const form = new FormData(elem);
+        const text = form.get("question") as string;
+
+        if (!text) return;
         console.log("Question: ", text);
-        e.target.reset();
+
+        elem.reset();
         sendMessage(text);
     };
     return (
