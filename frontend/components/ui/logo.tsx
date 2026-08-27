@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 import { VideoIcon } from "lucide-react";
 
-export function Logo({ className }: { className }) {
+export function Logo({ className }: { className?: string }) {
     return (
         <div
             className={cn(
