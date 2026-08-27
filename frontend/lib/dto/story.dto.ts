@@ -34,7 +34,8 @@ export interface LocationEntityDTO {
     continuityFlags: number;
 }
 
-export type StoryEntityDTO =
-    | CharacterEntityDTO
-    | PropEntityDTO
-    | LocationEntityDTO;
+export interface StoryEntityDTO {
+    characters: CharacterEntityDTO[];
+    props: PropEntityDTO[];
+    locations: LocationEntityDTO[];
+}
