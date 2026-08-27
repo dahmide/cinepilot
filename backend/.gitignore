@@ -1,0 +1,23 @@
+# dependencies
+venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# generated / runtime output
+extraction_output.json
+
+# env files (secrets)
+.env
+**/.env
+
+# local databases
+cinepilot.db
+.adk/
+
+# large/local-only assets
+screenplays/
+
+# OS/editor noise
+.DS_Store
+*.log

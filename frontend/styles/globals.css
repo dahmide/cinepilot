@@ -1,0 +1,154 @@
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@variant data-horizontal (&[data-orientation="horizontal"]);
+@variant data-vertical (&[data-orientation="vertical"]);
+@variant data-open (&[data-state="open"]);
+@variant data-closed (&[data-state="closed"]);
+
+@theme inline {
+    --header-height: 5rem;
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+
+    --color-success: #5ec2b7;
+    --color-warning: #d97f7f;
+
+    --font-sans: var(--font-inter);
+    --font-mono: var(--font-geist);
+    --font-mono: var(--font-serif);
+    --font-heading: var(--font-geist);
+    --font-heading: var(--font-serif);
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+    --background: theme(colors.stone.950);
+    --foreground: theme(colors.stone.100);
+
+    --card: theme(colors.stone.900);
+    --card-foreground: theme(colors.stone.100);
+
+    --popover: theme(colors.stone.900);
+    --popover-foreground: theme(colors.stone.100);
+
+    --primary: #f2c230;
+    --primary-foreground: theme(colors.stone.950);
+
+    --secondary: theme(colors.stone.800);
+    --secondary-foreground: theme(colors.stone.100);
+
+    --muted: theme(colors.stone.800);
+    --muted-foreground: theme(colors.stone.400);
+
+    --accent: #5ec2b7;
+    --accent-foreground: theme(colors.stone.950);
+
+    --destructive: #d97f7f;
+    --destructive-foreground: theme(colors.stone.950);
+
+    --border: theme(colors.stone.700);
+    --input: theme(colors.stone.700);
+    --ring: #f2c230;
+
+    --radius: 0.625rem;
+}
+
+@layer base {
+    body {
+        background: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-sans), sans-serif;
+        position: relative;
+        @apply leading-relaxed;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-foreground font-mono capitalize;
+    }
+
+    h1 {
+        @apply text-3xl font-semibold tracking-tight;
+    }
+    h2 {
+        @apply text-2xl font-semibold tracking-tight;
+    }
+    h3 {
+        @apply text-lg font-medium;
+    }
+    h4 {
+        @apply text-sm font-medium;
+    }
+
+    p {
+        @apply text-base text-muted-foreground;
+    }
+
+    form {
+        @apply w-full;
+    }
+
+    .root {
+        isolation: isolate;
+    }
+
+    .link {
+        @apply text-primary underline-offset-4 hover:underline cursor-pointer;
+    }
+
+    ::selection {
+        background: var(--primary);
+        color: var(--primary-foreground);
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+@layer utilities {
+    .display-xl {
+        @apply max-w-xl text-4xl font-semibold tracking-tight text-pretty md:text-5xl lg:max-w-3xl lg:text-6xl;
+    }
+    .display-md {
+    }
+    .display-sm {
+    }
+}
