@@ -6,7 +6,7 @@ export default async function ProjectLayout({
     params
 }: Readonly<{
     children: React.ReactNode;
-    params: Promise<{ id }>;
+    params: Promise<{ id: string }>;
 }>) {
     const { id } = await params;
     const overview = await getProjectOverview(id);
