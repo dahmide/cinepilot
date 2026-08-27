@@ -3,7 +3,7 @@ import { getStory } from "@/lib/dal/story.dal";
 
 export default async function StoryPage({
     params
-}: Readonly<{ params: Promise<{ id }> }>) {
+}: Readonly<{ params: Promise<{ id: string }> }>) {
     const { id } = await params;
     const { characters, props, locations } = await getStory(id);
 
