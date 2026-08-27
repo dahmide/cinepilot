@@ -59,7 +59,7 @@ const PREVIEW_LENGTH = 180;
 export default function ProjectChatPane() {
     const { messages, response, sendMessage } = useChat();
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const text = e.target.question.value;
         console.log("Question: ", text);
