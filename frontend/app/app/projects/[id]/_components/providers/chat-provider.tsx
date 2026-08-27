@@ -33,7 +33,8 @@ export function ChatProvider({
         const you: Message = {
             id: crypto.randomUUID(),
             role: "user",
-            content: question
+            content: question,
+            createdAt: new Date().toISOString()
         };
         setMessages(prev => [...prev, you]);
         setResponse(prev => ({ ...prev, loading: true, error: null }));
@@ -43,7 +44,8 @@ export function ChatProvider({
             const bot: Message = {
                 id: crypto.randomUUID(),
                 role: "assistant",
-                content: res.answer
+                content: res.answer,
+                createdAt: new Date().toISOString()
             };
 
             console.log("Chat: ", res);
