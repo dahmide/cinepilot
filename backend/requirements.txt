@@ -6,3 +6,4 @@ clickhouse-connect
 fastapi
 uvicorn
 python-dotenv
+python-jose[cryptography]
