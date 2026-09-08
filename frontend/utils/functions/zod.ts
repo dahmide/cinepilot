@@ -3,7 +3,7 @@ import * as z from "zod";
 type SafeParsePass<T> = { success: true; data: T };
 type SafeParseFail = {
     success: false;
-    errors: ReturnType<typeof z.flattenError>;
+    errors: ReturnType<typeof z.flattenError>["fieldErrors"];
 };
 
 export function zodParse<S extends z.ZodTypeAny>(
