@@ -2,13 +2,21 @@ import { API_BASE } from "@/config/api";
 import { AUTH_COOKIE_NAME } from "@/config/auth";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { Agent, setGlobalDispatcher } from "undici";
+
+setGlobalDispatcher(
+    new Agent({
+        headersTimeout: 1800_000, // 30 min, in ms
+        bodyTimeout: 1800_000,
+    })
+);
 
 export async function POST(req: NextRequest) {
     // 1. Extract token from local Next.js server cookie store
     const cookieStore = await cookies();
     const cookieToken = cookieStore.get(AUTH_COOKIE_NAME)?.value;
 
-    console.log("Cookie: ", cookieToken)
+    console.log("Cookie: ", cookieToken);
 
     if (!cookieToken) {
         return NextResponse.json(

@@ -22,7 +22,7 @@ export const AuthSchema = z.object({
 
 export type AuthFormState =
     | {
-          errors?: Partial<Record<keyof AuthInput, string[]>>;
+          errors?: Partial<Record<keyof AuthFormInput, string[]>>;
           message?: string;
           success: boolean;
       }
