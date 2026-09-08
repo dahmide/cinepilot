@@ -1,7 +1,7 @@
 "use client";
 
 import { Container, Section } from "@/components/layout";
-import type { IssueDTO } from "@/lib/dto/issues.dto";
+import type { IssueDTO } from "@/lib/dto/issue.dto";
 import { useState } from "react";
 import {
     Select,
@@ -44,7 +44,7 @@ export default function Issues({ issues }: { issues: IssueDTO[] }) {
                     <Select
                         items={items}
                         value={value}
-                        onValueChange={setValue}
+                        onValueChange={(v) => setValue(v!)}
                     >
                         <SelectTrigger>
                             <SelectValue />
