@@ -15,7 +15,7 @@ export async function getIssues(projectId: string): Promise<IssueDTO[]> {
 export async function getIssueDetail(
     projectId: string,
     issueId: string
-): Promise<IssueDetailDTO | undefined> {
+): Promise<IssueDetailDTO> {
     const url = `${API_BASE}/projects/${projectId}/issues/${issueId}`;
     const res = await apiFetch(url);
 
