@@ -1,0 +1,259 @@
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@variant data-horizontal (&[data-orientation="horizontal"]);
+@variant data-vertical (&[data-orientation="vertical"]);
+@variant data-open (&[data-state="open"]);
+@variant data-closed (&[data-state="closed"]);
+
+@theme inline {
+    --brand: #f2c230;
+
+    --topbar-height: 5rem;
+    --header-height: 5rem;
+
+    --font-hero: var(--ff-hero);
+    --font-head: var(--ff-head);
+    --font-body: var(--ff-body);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-evidence: var(--evidence);
+    --color-evidence-foreground: var(--evidence-foreground);
+
+    --color-conflict: var(--conflict);
+    --color-conflict-foreground: var(--conflict-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+/*  
+:root {
+    --background: theme(colors.stone.950);
+    --foreground: theme(colors.stone.100);
+
+    --card: theme(colors.stone.900);
+    --card-foreground: theme(colors.stone.100);
+
+    --popover: theme(colors.stone.900);
+    --popover-foreground: theme(colors.stone.100);
+
+    --primary: #f2c230;
+    --primary-foreground: theme(colors.stone.950);
+
+    --secondary: theme(colors.stone.800);
+    --secondary-foreground: theme(colors.stone.100);
+
+    --muted: theme(colors.stone.800);
+    --muted-foreground: theme(colors.stone.400);
+
+    --accent: #5ec2b7;
+    --accent-foreground: theme(colors.stone.950);
+
+    --destructive: #d97f7f;
+    --destructive-foreground: theme(colors.stone.950);
+
+    --ring: #f2c230;
+    --border: theme(colors.stone.700);
+    --input: theme(colors.stone.700);
+
+    --sidebar: theme(colors.stone.900);
+    --sidebar-foreground: theme(colors.stone.100);
+    --sidebar-primary: #f2c230;
+    --sidebar-primary-foreground: theme(colors.stone.100);
+    --sidebar-accent: #5ec2b7;
+    --sidebar-accent-foreground: theme(colors.stone.100);
+    --sidebar-border: theme(colors.stone.200);
+    --sidebar-ring: #f2c230;
+
+    --radius: 0.625rem;
+}
+*/
+
+:root {
+    --background: theme(colors.stone.950);
+    --foreground: theme(colors.stone.100);
+
+    --card: theme(colors.stone.900);
+    --card-foreground: theme(colors.stone.100);
+
+    --popover: theme(colors.stone.900);
+    --popover-foreground: theme(colors.stone.100);
+
+    --primary: var(--brand);
+    --primary-foreground: theme(colors.stone.950);
+
+    --evidence: oklch(0.72 0.11 165);
+    --evidence-foreground: oklch(0.18 0.02 165);
+
+    --conflict: oklch(0.7 0.17 32);
+    --conflict-foreground: oklch(0.18 0.02 32);
+
+    --secondary: theme(colors.stone.800);
+    --secondary-foreground: theme(colors.stone.100);
+
+    --muted: theme(colors.stone.800);
+    --muted-foreground: theme(colors.stone.400);
+
+    --accent: var(--brand);
+    --accent-foreground: theme(colors.stone.950);
+
+    --destructive: #d97f7f;
+    --destructive-foreground: theme(colors.stone.950);
+
+    --ring: var(--brand);
+    --border: theme(colors.stone.700);
+    --input: theme(colors.stone.700);
+
+    --sidebar: theme(colors.stone.900);
+    --sidebar-foreground: theme(colors.stone.100);
+    --sidebar-primary: var(--brand);
+    --sidebar-primary-foreground: theme(colors.stone.950);
+    --sidebar-accent: var(--brand);
+    --sidebar-accent-foreground: theme(colors.stone.950);
+    --sidebar-ring: var(--brand);
+    --sidebar-border: theme(colors.stone.700);
+
+    --radius: 0.625rem;
+}
+
+@layer base {
+    * {
+        border-color: var(--color-border);
+    }
+
+    body {
+        background: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-body), sans-serif;
+        position: relative;
+        @apply leading-relaxed;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-foreground font-head capitalize;
+    }
+
+    h1 {
+        @apply text-3xl font-semibold;
+    }
+    h2 {
+        @apply text-2xl font-semibold;
+    }
+    h3 {
+        @apply text-lg font-medium;
+    }
+    h4 {
+        @apply text-sm font-medium;
+    }
+
+    p {
+        @apply text-base text-muted-foreground;
+    }
+
+    form {
+        @apply w-full;
+    }
+
+    .root {
+        isolation: isolate;
+    }
+
+    .link {
+        @apply text-primary underline-offset-4 hover:underline cursor-pointer;
+    }
+
+    ::selection {
+        background: var(--primary);
+        color: var(--primary-foreground);
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+@layer utilities {
+    .display-xl {
+        @apply font-hero font-semibold text-balance max-w-xl text-5xl md:text-6xl lg:max-w-3xl lg:text-7xl;
+    }
+    .display-md {
+        @apply font-hero font-semibold text-balance max-w-xl text-4xl md:text-5xl lg:max-w-2xl lg:text-6xl;
+    }
+    .display-sm {
+        @apply font-hero font-semibold text-balance text-lg;
+    }
+}
+
+@utility text-balance {
+    text-wrap: balance;
+}
+
+@utility label {
+    font-family: var(--font-head);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+}
+
+@utility grain {
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.5;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    }
+}

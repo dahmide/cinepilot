@@ -1,0 +1,119 @@
+sources:
+    cinepilot-clickhouse:
+        kind: clickhouse
+        host: ${CLICKHOUSE_HOST}
+        port: "8443"
+        database: ${CLICKHOUSE_DATABASE}
+        user: ${CLICKHOUSE_USER}
+        password: ${CLICKHOUSE_PASSWORD}
+        protocol: https
+        secure: true
+
+tools:
+    get_character_appearances:
+        kind: clickhouse-sql
+        source: cinepilot-clickhouse
+        description: >
+            Look up which scenes a character appears in, matching by canonical name
+            or any known alias (case-insensitive). Returns scene number, location,
+            and time of day for each appearance, ordered by scene number.
+        parameters:
+            - name: project_id
+              type: string
+              description: Internal project scope identifier. Never ask the user for this value.
+            - name: character_name
+              type: string
+              description: The character name or alias to search for.
+        statement: |
+            SELECT
+              s.scene_number AS scene_number,
+              l.location_name AS location_name,
+              s.time_of_day AS time_of_day
+            FROM scene_appearances sa
+            INNER JOIN characters c
+              ON c.character_id = sa.character_id
+              AND c.project_id = sa.project_id
+            INNER JOIN scenes s
+              ON s.scene_id = sa.scene_id
+              AND s.project_id = sa.project_id
+            LEFT JOIN locations l
+              ON l.location_id = s.location_id
+              AND l.project_id = s.project_id
+            WHERE sa.project_id = {project_id:String}
+              AND (
+                lowerUTF8(c.canonical_name) = lowerUTF8({character_name:String})
+                OR arrayExists(a -> lowerUTF8(a) = lowerUTF8({character_name:String}), c.aliases)
+              )
+            ORDER BY s.scene_number ASC
+
+    get_scene_details:
+        kind: clickhouse-sql
+        source: cinepilot-clickhouse
+        description: >
+            Get full details for a specific scene by scene number, including its
+            resolved location name and time of day.
+        parameters:
+            - name: project_id
+              type: string
+              description: Internal project scope identifier. Never ask the user for this value.
+            - name: scene_number
+              type: integer
+              description: The scene number to look up.
+        statement: |
+            SELECT
+              s.scene_number AS scene_number,
+              l.location_name AS location_name,
+              s.time_of_day AS time_of_day,
+              s.time_reference AS time_reference
+            FROM scenes s
+            LEFT JOIN locations l
+              ON l.location_id = s.location_id
+              AND l.project_id = s.project_id
+            WHERE s.project_id = {project_id:String}
+              AND s.scene_number = {scene_number:UInt32}
+            LIMIT 1
+
+    search_prop:
+        kind: clickhouse-sql
+        source: cinepilot-clickhouse
+        description: >
+            Search for a prop by name or alias (case-insensitive), then find every
+            scene where that prop was carried by a character.
+        parameters:
+            - name: project_id
+              type: string
+              description: Internal project scope identifier. Never ask the user for this value.
+            - name: prop_name
+              type: string
+              description: The prop name or alias to search for.
+        statement: |
+            WITH resolved_prop AS (
+              SELECT p.prop_name AS canonical_name
+              FROM props p
+              WHERE p.project_id = {project_id:String}
+                AND (
+                  lowerUTF8(p.prop_name) = lowerUTF8({prop_name:String})
+                  OR arrayExists(a -> lowerUTF8(a) = lowerUTF8({prop_name:String}), p.aliases)
+                )
+              LIMIT 1
+            )
+            SELECT
+              s.scene_number AS scene_number,
+              c.canonical_name AS carried_by_character,
+              rp.canonical_name AS prop_name
+            FROM scene_appearances sa
+            CROSS JOIN resolved_prop rp
+            INNER JOIN scenes s
+              ON s.scene_id = sa.scene_id
+              AND s.project_id = sa.project_id
+            INNER JOIN characters c
+              ON c.character_id = sa.character_id
+              AND c.project_id = sa.project_id
+            WHERE sa.project_id = {project_id:String}
+              AND arrayExists(x -> lowerUTF8(x) = lowerUTF8(rp.canonical_name), sa.props_carried)
+            ORDER BY s.scene_number ASC
+toolsets:
+    chat_agent_tools:
+        - get_character_appearances
+        - get_scene_details
+        - search_prop

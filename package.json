@@ -1,0 +1,12 @@
+{
+    "name": "cinepilot",
+    "packageManager": "yarn@4.9.2",
+    "scripts": {
+        "client": "cd frontend && yarn run dev",
+        "server": "backend/venv/bin/uvicorn main:app --app-dir backend --reload --host 0.0.0.0 --port 8080",
+        "dev": "concurrently -n \"server,client\" \"yarn run server\" \"yarn run client\""
+    },
+    "devDependencies": {
+        "concurrently": "^10.0.5"
+    }
+}
