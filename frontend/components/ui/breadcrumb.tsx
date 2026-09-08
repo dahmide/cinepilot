@@ -20,7 +20,7 @@ type Crumb = {
     label: string;
 };
 
-const BreadcrumbContext = createContext<{
+export const BreadcrumbContext = createContext<{
     crumbs: Record<string, Crumb>;
     set: (key: string, crumb: Crumb) => void;
     get: (

@@ -1,4 +1,4 @@
-import { BreadcrumbContext } from "@/components/providers/breadcrumbs";
+import { BreadcrumbContext } from "@/components/ui/breadcrumb";
 import { useContext } from "react";
 
 export function useBreadcrumbs() {
