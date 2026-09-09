@@ -55,7 +55,7 @@ app = FastAPI(title="CinePilot API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://cinepilot.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://trycinepilot.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

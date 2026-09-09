@@ -61,7 +61,7 @@ export default function Header() {
                                 </NavigationMenuList>
                             </NavigationMenu>
                             <div className="flex items-center gap-4">
-                                <LinkButton href="/login" variant="default">
+                                <LinkButton href="/signin" variant="default">
                                     Sign in
                                 </LinkButton>
                                 <LinkButton href="/signup" variant="outline">

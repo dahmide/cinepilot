@@ -56,7 +56,7 @@ export default function Signup() {
                                 <InputGroup className="h-12 gap-1.5 ring-0! border-0! rounded-none!">
                                     <InputGroupInput
                                         name="username"
-                                        placeholder="Username"
+                                        placeholder="John"
                                         disabled={pending}
                                     />
                                     <InputGroupAddon className="pl-3!">
@@ -69,7 +69,7 @@ export default function Signup() {
                                 <InputGroup className="h-12 gap-1.5 ring-0! border-0! rounded-none!">
                                     <InputGroupInput
                                         name="password"
-                                        placeholder="Password"
+                                        placeholder="1234"
                                         disabled={pending}
                                     />
                                     <InputGroupAddon className="pl-3!">

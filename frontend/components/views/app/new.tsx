@@ -170,7 +170,7 @@ export default function Upload() {
                                                 nativeButton={false}
                                                 render={
                                                     <a
-                                                        href="files/sample-pdf.pdf"
+                                                        href="files/handmaids-tale.pdf"
                                                         download
                                                     >
                                                         Download sample PDF
